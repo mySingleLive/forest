@@ -16,7 +16,12 @@ public class HttpclientPostExecutor extends AbstractHttpclientEntityExecutor<Htt
 
     @Override
     protected HttpclientRequestProvider<HttpPost> getRequestProvider() {
-        return url -> new HttpPost(url);
+        return new HttpclientRequestProvider<HttpPost>() {
+            @Override
+            public HttpPost getRequest(String url) {
+                return new HttpPost(url);
+            }
+        };
     }
 
     @Override

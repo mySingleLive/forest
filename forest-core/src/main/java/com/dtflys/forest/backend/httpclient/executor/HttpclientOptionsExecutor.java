@@ -15,7 +15,12 @@ public class HttpclientOptionsExecutor extends AbstractHttpclientExecutor<HttpOp
 
     @Override
     protected HttpclientRequestProvider<HttpOptions> getRequestProvider() {
-        return url -> new HttpOptions(url);
+        return new HttpclientRequestProvider<HttpOptions>() {
+            @Override
+            public HttpOptions getRequest(String url) {
+                return new HttpOptions(url);
+            }
+        };
     }
 
     @Override

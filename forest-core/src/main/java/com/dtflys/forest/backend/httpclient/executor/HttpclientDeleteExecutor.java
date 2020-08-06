@@ -16,7 +16,12 @@ public class HttpclientDeleteExecutor extends AbstractHttpclientEntityExecutor<H
 
     @Override
     protected HttpclientRequestProvider<HttpclientDelete> getRequestProvider() {
-        return url -> new HttpclientDelete(url);
+        return new HttpclientRequestProvider<HttpclientDelete>() {
+            @Override
+            public HttpclientDelete getRequest(String url) {
+                return new HttpclientDelete(url);
+            }
+        };
     }
 
     @Override

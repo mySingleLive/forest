@@ -5,6 +5,7 @@ import com.dtflys.forest.backend.httpclient.request.HttpclientRequestSender;
 import com.dtflys.forest.backend.httpclient.response.HttpclientResponseHandler;
 import com.dtflys.forest.backend.url.URLBuilder;
 import com.dtflys.forest.http.ForestRequest;
+import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpPut;
 
 /**
@@ -15,7 +16,12 @@ public class HttpclientPatchExecutor extends AbstractHttpclientEntityExecutor<Ht
 
     @Override
     protected HttpclientRequestProvider<HttpPatch> getRequestProvider() {
-        return  url -> new HttpPatch(url);
+        return new HttpclientRequestProvider<HttpPatch>() {
+            @Override
+            public HttpPatch getRequest(String url) {
+                return new HttpPatch(url);
+            }
+        };
     }
 
     @Override

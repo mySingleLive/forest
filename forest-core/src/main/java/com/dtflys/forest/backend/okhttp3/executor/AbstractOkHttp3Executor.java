@@ -171,7 +171,7 @@ public abstract class AbstractOkHttp3Executor implements HttpExecutor {
         prepareBody(builder);
     }
 
-    public void execute(final ResponseHandler responseHandler, int retryCount) {
+    public void execute(final ResponseHandler responseHandler, final int retryCount) {
         OkHttpClient okHttpClient = getClient(request);
         URLBuilder urlBuilder = getURLBuilder();
         String url = urlBuilder.buildUrl(request);
@@ -184,7 +184,7 @@ public abstract class AbstractOkHttp3Executor implements HttpExecutor {
         final OkHttp3ForestResponseFactory factory = new OkHttp3ForestResponseFactory();
         logRequest(0, okRequest);
         Date startDate = new Date();
-        long startTime = startDate.getTime();
+        final long startTime = startDate.getTime();
         if (request.isAsync()) {
             final OkHttp3ResponseFuture future = new OkHttp3ResponseFuture();
             call.enqueue(new Callback() {

@@ -5,6 +5,7 @@ import com.dtflys.forest.backend.httpclient.request.HttpclientRequestSender;
 import com.dtflys.forest.backend.httpclient.response.HttpclientResponseHandler;
 import com.dtflys.forest.backend.url.URLBuilder;
 import com.dtflys.forest.http.ForestRequest;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpTrace;
 
 /**
@@ -15,7 +16,12 @@ public class HttpclientTraceExecutor extends AbstractHttpclientExecutor<HttpTrac
 
     @Override
     protected HttpclientRequestProvider<HttpTrace> getRequestProvider() {
-        return url -> new HttpTrace(url);
+        return new HttpclientRequestProvider<HttpTrace>() {
+            @Override
+            public HttpTrace getRequest(String url) {
+                return new HttpTrace(url);
+            }
+        };
     }
 
     @Override

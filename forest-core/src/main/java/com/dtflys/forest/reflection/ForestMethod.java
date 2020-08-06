@@ -155,7 +155,7 @@ public class ForestMethod<T> implements VariableScope {
         Type[] genericParamTypes = method.getGenericParameterTypes();
         TypeVariable<Method>[] typeVariables = method.getTypeParameters();
         Annotation[][] paramAnns = method.getParameterAnnotations();
-        Parameter[] parameters = method.getParameters();
+        Class[] parameterTypes = method.getParameterTypes();
         for (int i = 0; i < annotations.length; i++) {
             Annotation ann = annotations[i];
             if (ann instanceof Request) {
@@ -187,7 +187,7 @@ public class ForestMethod<T> implements VariableScope {
                 }
 
                 parameterTemplateArray = new MappingParameter[paramTypes.length];
-                processParameters(parameters, genericParamTypes, paramAnns);
+                processParameters(parameterTypes, genericParamTypes, paramAnns);
 
                 dataTemplateArray = new MappingTemplate[dataArray.length];
                 for (int j = 0; j < dataArray.length; j++) {
@@ -224,18 +224,17 @@ public class ForestMethod<T> implements VariableScope {
 
     /**
      * 处理参数列表
-     * @param parameters
+     * @param parameterTypes
      * @param genericParamTypes
      * @param paramAnns
      */
-    private void processParameters(Parameter[] parameters, Type[] genericParamTypes, Annotation[][] paramAnns) {
-        for (int i = 0; i < parameters.length; i++) {
-            Parameter param = parameters[i];
-            Class paramType = param.getType();
+    private void processParameters(Class[] parameterTypes, Type[] genericParamTypes, Annotation[][] paramAnns) {
+        for (int i = 0; i < parameterTypes.length; i++) {
+            Class paramType = parameterTypes[i];
             Annotation[] anns = paramAnns[i];
             MappingParameter parameter = new MappingParameter();
             parameter.setIndex(i);
-            parameter.setName(param.getName());
+//            parameter.setName(param.getName());
             parameterTemplateArray[i] = parameter;
             if (OnSuccess.class.isAssignableFrom(paramType)) {
                 onSuccessParameter = parameter;

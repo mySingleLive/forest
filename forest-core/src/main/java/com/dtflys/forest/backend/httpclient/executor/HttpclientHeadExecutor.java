@@ -15,7 +15,12 @@ public class HttpclientHeadExecutor extends AbstractHttpclientExecutor<HttpHead>
 
     @Override
     protected HttpclientRequestProvider<HttpHead> getRequestProvider() {
-        return url -> new HttpHead(url);
+        return new HttpclientRequestProvider<HttpHead>() {
+            @Override
+            public HttpHead getRequest(String url) {
+                return new HttpHead(url);
+            }
+        };
     }
 
     @Override

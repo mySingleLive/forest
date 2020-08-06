@@ -15,7 +15,12 @@ public class HttpclientGetExecutor extends AbstractHttpclientExecutor<HttpGet> {
 
     @Override
     protected HttpclientRequestProvider<HttpGet> getRequestProvider() {
-        return url -> new HttpGet(url);
+        return new HttpclientRequestProvider<HttpGet>() {
+            @Override
+            public HttpGet getRequest(String url) {
+                return new HttpGet(url);
+            }
+        };
     }
 
     @Override
